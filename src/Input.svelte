@@ -7,7 +7,7 @@
 
   $: if (value.length > 3) {    
     response = fetch(`https://www.omdbapi.com/?s=${value}&apikey=422350ff`)
-      .then(res => !res.ok && new Error('Ha habido un error consultando las pelis'))
+      //.then(res => !res.ok && new Error('Ha habido un error consultando las pelis'))
       .then(res => res.json())
       .then(apiResponse => apiResponse.Search || [])
     }
@@ -23,9 +23,8 @@
   <strong>Loading....</strong>
 {:then movies}
   <!-- <strong>Tenemos {response.length} peliculas</strong> -->
-  {#each movies as {Title, Poster, Year}, index}
+  {#each movies as {Title, Poster, Year}}
     <Movie 
-      index={index}
       title={Title}
       poster={Poster}
       year={Year}
@@ -33,8 +32,6 @@
   {:else}
     <strong>No hay resultados</strong>
   {/each}
-{:catch error}
-  <p>❌ Ha ocurrido un error</p>
 {/await}
 
 
